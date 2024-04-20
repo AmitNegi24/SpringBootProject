@@ -30,8 +30,8 @@ import com.amit.service.ProductService;
 
 @RestController
 
-@CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping(value = "/product-api")
+@CrossOrigin(origins = "http://localhost:5173")
+@RequestMapping(value = "/api/product-api")
 public class ProductAPI {
 
 	@Autowired
@@ -73,6 +73,7 @@ public class ProductAPI {
 			String originalFileName = imageFile.getOriginalFilename();
 			 String base64Image = new MultipartFileToStringConverter().convert(imageFile);
 			 Path fileNameAndPath = Paths.get(uploadDirectory, originalFileName);
+			 String fp= fileNameAndPath.toString();
 			 Files.write(fileNameAndPath, imageFile.getBytes());
 			 productDTO.setProductImage(base64Image);
 			productService.createProduct(productDTO);

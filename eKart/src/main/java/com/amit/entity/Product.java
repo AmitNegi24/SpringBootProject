@@ -26,6 +26,15 @@ public class Product {
 	private String successMessage;
 	private String sellerEmailId;
 	private Integer availableQuantity;
+	private String title;
+	
+	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	public Integer getProductId() {
 		return productId;
 	}

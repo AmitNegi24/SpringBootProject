@@ -39,6 +39,7 @@ public class ProductServiceImpl implements ProductService {
         			productDTO.setProductId(product.getProductId());
         			productDTO.setAvailableQuantity(product.getAvailableQuantity());
         			productDTO.setProductImage(product.getProductImage());
+        			productDTO.setTitle(product.getTitle());
         			
         			return productDTO;
         		}).collect(Collectors.toList());
@@ -60,6 +61,7 @@ public class ProductServiceImpl implements ProductService {
 	    productDTO.setProductId(product.getProductId());
 	    productDTO.setAvailableQuantity(product.getAvailableQuantity());
 	    productDTO.setProductImage(product.getProductImage());
+	    productDTO.setTitle(product.getTitle());
 
 	    return productDTO;
 	}
@@ -85,6 +87,7 @@ public class ProductServiceImpl implements ProductService {
 		product.setProductId(productDTO.getProductId());
 		product.setAvailableQuantity(productDTO.getAvailableQuantity());
 		product.setProductImage(productDTO.getProductImage());
+		product.setTitle(productDTO.getTitle());
 		
 		Product savedProduct = productRepository.save(product);
 		
@@ -98,6 +101,7 @@ public class ProductServiceImpl implements ProductService {
 		productDTO1.setProductId(savedProduct.getProductId());
 		productDTO1.setAvailableQuantity(savedProduct.getAvailableQuantity());
 		productDTO1.setProductImage(savedProduct.getProductImage());
+		productDTO1.setTitle(savedProduct.getTitle());
 		
 		return productDTO1;
 		
@@ -120,6 +124,7 @@ public class ProductServiceImpl implements ProductService {
 			existingProduct.setProductId(productDTO.getProductId());
 			existingProduct.setAvailableQuantity(productDTO.getAvailableQuantity());
 			existingProduct.setProductImage(productDTO.getProductImage());
+			existingProduct.setTitle(productDTO.getTitle());
 			
 			Product updatedProduct=productRepository.save(existingProduct);
 			
@@ -133,6 +138,7 @@ public class ProductServiceImpl implements ProductService {
 			productDTO1.setProductId(updatedProduct.getProductId());
 			productDTO1.setAvailableQuantity(updatedProduct.getAvailableQuantity());
 			productDTO1.setProductImage(updatedProduct.getProductImage());
+			productDTO1.setTitle(updatedProduct.getTitle());
 			
 			return productDTO1;
 		}
