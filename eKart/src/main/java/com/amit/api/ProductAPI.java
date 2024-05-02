@@ -73,7 +73,6 @@ public class ProductAPI {
 			String originalFileName = imageFile.getOriginalFilename();
 			 String base64Image = new MultipartFileToStringConverter().convert(imageFile);
 			 Path fileNameAndPath = Paths.get(uploadDirectory, originalFileName);
-			 String fp= fileNameAndPath.toString();
 			 Files.write(fileNameAndPath, imageFile.getBytes());
 			 productDTO.setProductImage(base64Image);
 			productService.createProduct(productDTO);

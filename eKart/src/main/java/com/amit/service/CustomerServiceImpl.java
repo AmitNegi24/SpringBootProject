@@ -27,9 +27,8 @@ public class CustomerServiceImpl implements CustomerService {
 		
 		CustomerDTO customerDTO = new CustomerDTO();
 		customerDTO.setEmailId(customer.getEmailId());
-		customerDTO.setName(customer.getPassword());
-		customerDTO.setPassword(customer.getPassword());
-		customerDTO.setNewPassword(customer.getName());
+		customerDTO.setName(customer.getName());
+		//customerDTO.setPassword(customer.getPassword());
 		customerDTO.setPhoneNumber(customer.getPhoneNumber());
 		customerDTO.setAddress(customer.getAddress());
 		customerDTO.setRole(customer.getRole());
