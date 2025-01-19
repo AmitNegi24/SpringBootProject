@@ -17,3 +17,4 @@ public class EKartApplication {
 	}
 
 }
+//http://localhost:8080/api/product-api/products

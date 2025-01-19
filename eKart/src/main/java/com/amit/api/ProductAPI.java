@@ -85,7 +85,7 @@ public class ProductAPI {
 		}
 	}
 
-	@DeleteMapping(value = "/products/{id}")
+	@DeleteMapping(value = "/product/{id}")
 	public ResponseEntity<String> deleteProduct(@PathVariable Integer id) throws EKartException {
 		logger.info("Recieved a request to delete product details for product with id as " + id);
 		try {
