@@ -11,11 +11,12 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class ProjectSecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+        http.csrf().disable();
 //        http.authorizeHttpRequests((requests) -> requests.anyRequest().authenticated());
         http.authorizeHttpRequests((requests) ->requests.
                 requestMatchers("/api/product-api/product").authenticated()
                 .requestMatchers("/api/product-api/products","/error").permitAll());
-        http.formLogin(flc->flc.disable());
+        http.formLogin(withDefaults());
         http.httpBasic(withDefaults());
         return http.build();
     }

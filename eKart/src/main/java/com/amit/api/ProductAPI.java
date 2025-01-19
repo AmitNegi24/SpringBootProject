@@ -42,7 +42,7 @@ public class ProductAPI {
 
 	Log logger = LogFactory.getLog(ProductAPI.class);
 
-	public static String uploadDirectory = System.getProperty("user.dir")+"/src/main/resources/static/images";
+	public static String uploadDirectory = System.getProperty("user.dir")+"/eKart/src/main/resources/static/images";
 
 	@GetMapping(value = "/products")
 	public ResponseEntity<List<ProductDTO>> getAllProducts() throws EKartException {
