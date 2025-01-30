@@ -33,12 +33,12 @@ public class ProjectSecurityConfig {
                .csrf(customizer -> customizer.disable())
                 .authorizeHttpRequests((requests) ->requests
                         .requestMatchers("/api/product-api/product").authenticated()
-                .requestMatchers("/error","/api/customer-api/register","/api/customer-api/login","/error").permitAll())
-               .formLogin(withDefaults())
-               .httpBasic(withDefaults())
-               .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-               .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-               .build();
+                        .requestMatchers("/api/customer-api/register","/api/customer-api/login","/error","/api/product-api/products").permitAll())
+                        .formLogin(withDefaults())
+                        .httpBasic(withDefaults())
+                        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                        .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                        .build();
     }
 
     @Bean
