@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
+
 
 public class UserPrincipal implements UserDetails {
 
@@ -26,10 +26,15 @@ public class UserPrincipal implements UserDetails {
         return customer.getPassword();
     }
 
+//    @Override
+//    public String getUsername() {
+//        return customer.getUserName();
+//    }
+
     @Override
-    public String getUsername() {
-        return customer.getUserName();
-    }
+    public String getUsername() {     // This is my custom method to return email instead of username
+        return customer.getEmailId();
+   }
 
     @Override
     public boolean isAccountNonExpired() {

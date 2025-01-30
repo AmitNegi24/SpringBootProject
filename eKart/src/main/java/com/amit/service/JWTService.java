@@ -73,9 +73,7 @@ public String generateToken(String emailId) {
 
     private SecretKey getKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
-        SecretKey secretKey = Keys.hmacShaKeyFor(keyBytes);
-        System.out.println("Secret Key: " + Base64.getEncoder().encodeToString(secretKey.getEncoded())); // Optional: To check if the key is generated correctly
-        return secretKey;
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 
 
@@ -98,6 +96,8 @@ public String generateToken(String emailId) {
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String emailId = extractEmailId(token);
+        System.out.println("Extracted emailId from token: " + emailId);
+        System.out.println("Username from UserDetails: " + userDetails.getUsername());
         return (emailId.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
