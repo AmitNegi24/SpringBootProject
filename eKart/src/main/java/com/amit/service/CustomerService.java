@@ -5,8 +5,11 @@ import com.amit.exception.EKartException;
 
 public interface CustomerService {
 
-	CustomerDTO authenticateCustomer(String emailId,String password) throws EKartException;
-	
+
+	String authenticateCustomer(String emailId,String password) throws EKartException;
+
+	//String verifyLogin(CustomerDTO customerDTO) throws EKartException;
+
 	String registerNewCustomer(CustomerDTO customerDTO) throws EKartException;
 	
 	void updateShippingAddress(String customerEmailId,String address)throws EKartException;

@@ -35,16 +35,21 @@ public class CustomerAPI {
 	static Log logger = LogFactory.getLog(CustomerAPI.class);
 
 	@PostMapping(value = "/login")
-	public ResponseEntity<CustomerDTO> authenticateCustomer(@Valid @RequestBody CustomerCredDTO custCredDTO)
+	public String authenticateCustomer(@Valid @RequestBody CustomerCredDTO custCredDTO)
 			throws EKartException {
 
 		logger.info("CUSTOMER TRYING TO LOGIN, VALIDATING CREDENTIALS. CUSTOMER EMAILID :" + custCredDTO.getEmailId());
-		CustomerDTO customerDTOFromDB = customerService.authenticateCustomer(custCredDTO.getEmailId(),
+		String Token = customerService.authenticateCustomer(custCredDTO.getEmailId(),
 				custCredDTO.getPassword());
-		logger.info("CUSTOMER LOGIN SUCCESS,CUSTOMER EMAIL: " + customerDTOFromDB.getEmailId());
-		return new ResponseEntity<>(customerDTOFromDB, HttpStatus.OK);
+		logger.info("CUSTOMER LOGIN SUCCESS,CUSTOMER EMAIL: " + custCredDTO.getEmailId());
+		return Token;
 	}
 
+//	@PostMapping(value = "/login")
+//	public String login(@Valid @RequestBody CustomerDTO customerDTO) throws EKartException {
+//		logger.info("CUSTOMER TRYING TO LOGIN, VALIDATING CREDENTIALS. CUSTOMER EMAILID :" + customerDTO.getEmailId());
+//		return customerService.verifyLogin(customerDTO);
+//	}
 	@PostMapping(value = "/register")
 	public ResponseEntity<String> registerCustomer(@Valid @RequestBody CustomerDTO customerDTO) throws EKartException {
 

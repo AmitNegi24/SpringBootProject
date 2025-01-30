@@ -10,12 +10,12 @@ public class CustomerDTO {
 	@Pattern(regexp = "[a-zA-Z0-9._]+@[a-zA-Z]{2,}\\.[a-zA-Z][a-zA-Z.]+", message = "{invalid.email.format}")
 	private String emailId;
 	@Pattern(regexp = "([A-Za-z])+(\\s[A-Za-z]+)*", message = "{customer.invalid.name}")
-	private String name;
+	private String userName;
 	@NotNull(message = "{password.absent}")
 	@Pattern(regexp = ".*[A-Z]+.*", message = "{invalid.password.format.uppercase}")
 	@Pattern(regexp = ".*[a-z]+.*", message = "{invalid.password.format.lowercase}")
 	@Pattern(regexp = ".*[0-9]+.*", message = "{invalid.password.format.number}")
-	@Pattern(regexp = ".*[^a-zA-Z0-9].*", message = "{invalid.password.format.specialcharacter}")
+	@Pattern(regexp = ".*[^a-zA-Z0-9].*", message = "{invalid.password.format.specialCharacter}")
 	private String password;
 	private String newPassword;
 	@Size(max = 10, min = 10, message = "{customer.invalid.phonenumber}")
@@ -41,12 +41,12 @@ public class CustomerDTO {
 		this.emailId = emailId;
 	}
 
-	public String getName() {
-		return name;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getPassword() {

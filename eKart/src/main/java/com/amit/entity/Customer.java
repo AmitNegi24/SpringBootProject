@@ -8,7 +8,7 @@ public class Customer {
 
 	@Id
 	private String emailId;
-	private String name;
+	private String userName;
 	private String password;
 	private String phoneNumber;
 	private String address;
@@ -30,12 +30,12 @@ public class Customer {
 		this.emailId = emailId;
 	}
 
-	public String getName() {
-		return name;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getPassword() {

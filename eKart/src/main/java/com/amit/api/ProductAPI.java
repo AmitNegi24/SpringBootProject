@@ -5,12 +5,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,9 +46,17 @@ public class ProductAPI {
 
 	public static String uploadDirectory = System.getProperty("user.dir")+"/eKart/src/main/resources/static/images";
 
+
+
+	@GetMapping(value = "/csrf-token")
+	public CsrfToken getCsrfToken(HttpServletRequest request) {
+		return (CsrfToken) request.getAttribute("_csrf");
+
+	}
+
 	@GetMapping(value = "/products")
 	public ResponseEntity<List<ProductDTO>> getAllProducts() throws EKartException {
-		logger.info("Recieved a request to display all Products");
+		logger.info("Received a request to display all Products");
 		List<ProductDTO> products = productService.getAllProducts();
 		return new ResponseEntity<>(products, HttpStatus.OK);
 	}
@@ -54,7 +64,7 @@ public class ProductAPI {
 	@GetMapping(value = "/products/{id}")
 	public ResponseEntity<?> getProductById(@PathVariable Integer id) throws EKartException {
 
-		logger.info("Recieved a request to get product details for product with id as " + id);
+		logger.info("Received a request to get product details for product with id as " + id);
 		try {
 			ProductDTO product = productService.getProductById(id);
 			return new ResponseEntity<>(product, HttpStatus.OK);
@@ -87,7 +97,7 @@ public class ProductAPI {
 
 	@DeleteMapping(value = "/product/{id}")
 	public ResponseEntity<String> deleteProduct(@PathVariable Integer id) throws EKartException {
-		logger.info("Recieved a request to delete product details for product with id as " + id);
+		logger.info("Received a request to delete product details for product with id as " + id);
 		try {
 			productService.deleteProduct(id);
 			return ResponseEntity.ok("Product deleted Successfully");
@@ -100,7 +110,7 @@ public class ProductAPI {
 	@PutMapping(value = "/updateProduct/{id}")
 	public ResponseEntity<?> updateProduct(@PathVariable Integer id, @RequestBody ProductDTO productDTO)
 			throws EKartException {
-		logger.info("Recieved a request to update product details for product with id as " + id);
+		logger.info("Received a request to update product details for product with id as " + id);
 		try {
 			productService.getProductById(id);
 			ProductDTO updatedProduct = productService.updateProduct(id, productDTO);
@@ -114,7 +124,7 @@ public class ProductAPI {
 	public ResponseEntity<String> reduceAvailableQuantity(@PathVariable Integer id, @RequestBody Integer quantity)
 			throws EKartException {
 
-		logger.info("Recieved a request to update the available quantity for product with id " + id);
+		logger.info("Received a request to update the available quantity for product with id " + id);
 		try {
 			productService.reduceAvailableQuantity(id, (quantity));
 			return new ResponseEntity<>(environment.getProperty("ProductAPI.REDUCE_QUANTITY_SUCCESSFULL"),
