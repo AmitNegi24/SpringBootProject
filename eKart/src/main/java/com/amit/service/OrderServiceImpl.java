@@ -29,7 +29,7 @@ public class OrderServiceImpl implements OrderService {
         shippingInfo.setCity(orderDTO.getShippingInfo().getCity());
         shippingInfo.setZipCode(orderDTO.getShippingInfo().getZipCode());
 
-        // Set ShippingInfo in the Order 
+        // Set ShippingInfo in the Order
         order.setShippingInfo(shippingInfo);
         // Map CartItemDTO to CartItem entities
         List<CartItem> cartItems = orderDTO.getCartItems().stream()
