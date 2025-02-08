@@ -6,13 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.amit.dto.CustomerCredDTO;
 import com.amit.dto.CustomerDTO;
@@ -23,6 +17,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping(value = "/api/customer-api")
 public class CustomerAPI {
 

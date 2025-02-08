@@ -31,11 +31,10 @@ public class ProjectSecurityConfig {
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
        return  http
                .csrf(customizer -> customizer.disable())
+               .cors(withDefaults())
                 .authorizeHttpRequests((requests) ->requests
-                        .requestMatchers("/api/product-api/product").authenticated()
+                        .requestMatchers("/api/product-api/product","/api/checkout-api/checkout").authenticated()
                         .requestMatchers("/api/customer-api/register","/api/customer-api/login","/error","/api/product-api/products").permitAll())
-                        .formLogin(withDefaults())
-                        .httpBasic(withDefaults())
                         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                         .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                         .build();
