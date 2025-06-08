@@ -1,0 +1,39 @@
+services:
+  # MongoDB Service
+  mongodb:
+    image: mongo:6.0
+    container_name: mongodb-container
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: my_database
+
+  # Spring Boot Backend Service
+  backend:
+    build:
+      context: C:\Users\mrami\SpringBootProject\eKart # Path to the Spring Boot backend project folder containing Dockerfile
+      dockerfile: Dockerfile
+    container_name: spring-boot-app
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongodb-container:27017/my_database
+      - ENVIRONMENT=container  # Define the environment variable for container path
+    depends_on:
+      - mongodb
+
+  # React Frontend Service
+  frontend:
+    image: nginx:alpine
+    container_name: docker-react-app
+    ports:
+      - "5173:80"
+    volumes:
+      - C:/Users/mrami/practice2/ECommerce/dist:/usr/share/nginx/html:ro
+    depends_on:
+      - backend
+
+volumes:
+  mongo-data:

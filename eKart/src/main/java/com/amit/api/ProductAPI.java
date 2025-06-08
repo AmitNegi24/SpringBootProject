@@ -44,8 +44,17 @@ public class ProductAPI {
 
 	Log logger = LogFactory.getLog(ProductAPI.class);
 
-	public static String uploadDirectory = System.getProperty("user.dir")+"/eKart/src/main/resources/static/images";
-
+//	public static String uploadDirectory = System.getProperty("user.dir")+"/eKart/src/main/resources/static/images";
+public static String uploadDirectory;
+static {
+	// Check environment variable to decide path
+	String environment = System.getenv("ENVIRONMENT");
+	if ("container".equals(environment)) {
+		uploadDirectory = "/app/static/images";  // Path inside Docker container
+	} else {
+		uploadDirectory = System.getProperty("user.dir") + "/eKart/src/main/resources/static/images";  // Local path
+	}
+}
 
 
 	@GetMapping(value = "/csrf-token")
@@ -78,19 +87,27 @@ public class ProductAPI {
 	public ResponseEntity<String> createProduct( ProductDTO productDTO,
 			@RequestParam("productImage") MultipartFile imageFile) throws EKartException {
 		logger.info("Received a request to create a product");
+		System.out.println("GOING IN TRY BLOCK");
 
 		try {
 			String originalFileName = imageFile.getOriginalFilename();
+			System.out.println(originalFileName);
 			 String base64Image = new MultipartFileToStringConverter().convert(imageFile);
 			 Path fileNameAndPath = Paths.get(uploadDirectory, originalFileName);
+			System.out.println(fileNameAndPath);
 			 Files.write(fileNameAndPath, imageFile.getBytes());
 			 productDTO.setProductImage(base64Image);
 			productService.createProduct(productDTO);
 			
 			return ResponseEntity.ok("Product created successfully");
 		} catch (EKartException e) {
+			logger.error("Error occurred while creating product", e);
+			System.out.println(e.getMessage());
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
 		} catch (Exception e) {
+			logger.error("Error occurred while creating product", e);
+			System.out.println(e.getMessage());
+			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create product");
 		}
 	}

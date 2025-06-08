@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
+@Service(value ="orderService")
 public class OrderServiceImpl implements OrderService {
 
     @Autowired
@@ -22,15 +22,22 @@ public class OrderServiceImpl implements OrderService {
         // Convert DTO to Entity
         Order order = new Order();
         order.setTotalAmount(orderDTO.getTotalAmount());
+        order.setPaymentMethod(orderDTO.getPaymentMethod());
+        order.setUpiId(orderDTO.getUpiId());
+        System.out.println("Payment Method: " + orderDTO.getPaymentMethod());
+        if ("COD".equalsIgnoreCase(orderDTO.getPaymentMethod())) {
+            order.setOrderStatus(OrderStatus.CONFIRMED);
+        } else {
+            order.setOrderStatus(OrderStatus.PENDING);
+        }
 
         ShippingInfo shippingInfo = new ShippingInfo();
         shippingInfo.setName(orderDTO.getShippingInfo().getName());
         shippingInfo.setAddress(orderDTO.getShippingInfo().getAddress());
         shippingInfo.setCity(orderDTO.getShippingInfo().getCity());
         shippingInfo.setZipCode(orderDTO.getShippingInfo().getZipCode());
-
-        // Set ShippingInfo in the Order
         order.setShippingInfo(shippingInfo);
+
         // Map CartItemDTO to CartItem entities
         List<CartItem> cartItems = orderDTO.getCartItems().stream()
                 .map(cartItemDTO -> {
@@ -46,9 +53,7 @@ public class OrderServiceImpl implements OrderService {
                 .collect(Collectors.toList());
 
         order.setCartItems(cartItems);
-        order.setOrderStatus(OrderStatus.PENDING);
 
-        // Save the order, MongoDB will generate the order ID automatically
         return orderRepository.save(order);
     }
 
@@ -57,5 +62,21 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderStatus(newStatus);
         return orderRepository.save(order);
     }
+
+    @Override
+    public Order getOrderById(String orderId) {
+        return orderRepository.findById(orderId).orElse(null);
+    }
+
+    @Override
+    public Order saveOrder(Order order) {
+        return orderRepository.save(order);
+    }
+
+    @Override
+    public Order getOrderByRazorpayOrderId(String razorpayOrderId) {
+        return orderRepository.findByRazorpayOrderId(razorpayOrderId);
+    }
+
 
 }

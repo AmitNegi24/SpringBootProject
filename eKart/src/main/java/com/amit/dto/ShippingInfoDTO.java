@@ -1,10 +1,16 @@
 package com.amit.dto;
 
+import jakarta.validation.constraints.NotNull;
+
 public class ShippingInfoDTO {
+    @NotNull(message = "{shippinginfo.name.absent}")
     private String name;
-    private String address;  // Changed to String
-    private String city;     // Added city
-    private String zipCode;  // Added zipCode
+    @NotNull(message = "{shippinginfo.address.absent}")
+    private String address;
+   @NotNull(message = "{shippinginfo.city.absent}")
+    private String city;
+    @NotNull(message = "{shippinginfo.zipcode.absent}")
+    private String zipCode;
 
     // Getters and Setters
 

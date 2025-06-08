@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/eKart/Docker/Docker.iml" filepath="$PROJECT_DIR$/eKart/Docker/Docker.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/SpringBootProject.iml" filepath="$PROJECT_DIR$/.idea/SpringBootProject.iml" />
     </modules>
   </component>

@@ -33,7 +33,13 @@ public class ProjectSecurityConfig {
                .csrf(customizer -> customizer.disable())
                .cors(withDefaults())
                 .authorizeHttpRequests((requests) ->requests
-                        .requestMatchers("/api/product-api/product","/api/checkout-api/checkout").authenticated()
+                        .requestMatchers(
+                                "/api/product-api/product",
+                                "/api/checkout-api/checkout",
+                                "/api/payment-api/confirm",
+                                "/api/payment-api/verify-payment",
+                                "/api/payment-api/create-razorpay-order")
+                        .authenticated()
                         .requestMatchers("/api/customer-api/register","/api/customer-api/login","/error","/api/product-api/products").permitAll())
                         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                         .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
