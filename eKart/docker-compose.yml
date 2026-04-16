@@ -18,6 +18,8 @@ services:
     container_name: spring-boot-app
     ports:
       - "8080:8080"
+    env_file:
+      - .env
     environment:
       - SPRING_DATA_MONGODB_URI=mongodb://mongodb-container:27017/my_database
       - ENVIRONMENT=container  # Define the environment variable for container path
