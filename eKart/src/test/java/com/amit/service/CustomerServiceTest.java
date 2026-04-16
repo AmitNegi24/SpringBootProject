@@ -31,7 +31,7 @@ public class CustomerServiceTest {
 
     @InjectMocks
     private CustomerServiceImpl customerService;
-
+ //Test cases here
     @Test
     public void authenticateCustomerValidCase() throws EKartException {
         Customer customer  = new Customer();
@@ -58,11 +58,9 @@ public class CustomerServiceTest {
         Customer customer = new Customer();
         customer.setEmailId("test123@gmail.com");
 
-        when(customerRepository.findById("test123@gmail.com")).thenReturn(Optional.empty());
+        when(customerRepository.findById(customer.getEmailId())).thenReturn(Optional.empty());
 
-        assertThrows(EKartException.class,()->{
-            customerService.authenticateCustomer("test123@gmail.com","password");
-        });
+        assertThrows(EKartException.class,()-> customerService.authenticateCustomer("test123@gmail.com","password"));
     }
 
     @Test
@@ -74,8 +72,6 @@ public class CustomerServiceTest {
 
         when(authenticationManager.authenticate(any())).thenThrow(new RuntimeException());
 
-        assertThrows(EKartException.class,()->{
-            customerService.authenticateCustomer("test123@gmail.com","wrong_password");
-        });
+        assertThrows(EKartException.class,()-> customerService.authenticateCustomer("test123@gmail.com","wrong_password"));
     }
 }
