@@ -40,7 +40,12 @@ public class ProjectSecurityConfig {
                                 "/api/payment-api/verify-payment",
                                 "/api/payment-api/create-razorpay-order")
                         .authenticated()
-                        .requestMatchers("/api/customer-api/register","/api/customer-api/login","/error","/api/product-api/products").permitAll())
+                        .requestMatchers(
+                                "/api/customer-api/register",
+                                "/api/customer-api/login",
+                                "/error","/api/product-api/products" ,
+                                "/actuator/health")
+                        .permitAll())
                         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                         .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                         .build();
@@ -59,25 +64,6 @@ public class ProjectSecurityConfig {
         return config.getAuthenticationManager();
     }
 
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-//        PasswordEncoder encoder = passwordEncoder();
-////        UserDetails user = User.withUsername("user").password("{noop}12345").authorities("USER").build();
-//        UserDetails user = User
-//                .withUsername("user")
-//                .password(encoder.encode("@Dmin*9627"))
-//                .authorities("USER")
-//                .build();
-//        UserDetails admin = User
-//                .withUsername("admin")
-//                .password("$2a$12$4Sshvc6yXytgxQDGPoiIQeez09tvsseSY7wAXKyqc.A2Ge5RGPmrC")
-//                .authorities("ADMIN")
-//                .build();
-//
-//
-//
-//        return new InMemoryUserDetailsManager(user, admin);
-//    }
 
     @Bean
     public PasswordEncoder passwordEncoder(){

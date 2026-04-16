@@ -12,8 +12,6 @@ public class ShippingInfoDTO {
     @NotNull(message = "{shippinginfo.zipcode.absent}")
     private String zipCode;
 
-    // Getters and Setters
-
     public String getName() {
         return name;
     }

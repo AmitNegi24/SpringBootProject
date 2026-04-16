@@ -158,7 +158,13 @@ public class ProductServiceImpl implements ProductService {
 	
 		Optional<Product> productOptional = productRepository.findByProductId(productId);
 		Product product = productOptional.orElseThrow(()-> new EKartException("ProductService.PRODUCT_NOT_AVAILABLE"));
+		if (quantity <= 0) {
+			throw new EKartException("Service.INVALID_QUANTITY");
+		}
 		product.setAvailableQuantity(product.getAvailableQuantity() - quantity);
+		if (product.getAvailableQuantity() < quantity) {
+			throw new EKartException("Service.INSUFFICIENT_QUANTITY");
+		}
 		productRepository.save(product);
 		
 	}

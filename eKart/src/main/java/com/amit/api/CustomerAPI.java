@@ -40,11 +40,6 @@ public class CustomerAPI {
 		return Token;
 	}
 
-//	@PostMapping(value = "/login")
-//	public String login(@Valid @RequestBody CustomerDTO customerDTO) throws EKartException {
-//		logger.info("CUSTOMER TRYING TO LOGIN, VALIDATING CREDENTIALS. CUSTOMER EMAILID :" + customerDTO.getEmailId());
-//		return customerService.verifyLogin(customerDTO);
-//	}
 	@PostMapping(value = "/register")
 	public ResponseEntity<String> registerCustomer(@Valid @RequestBody CustomerDTO customerDTO) throws EKartException {
 

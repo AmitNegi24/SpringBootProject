@@ -2,8 +2,8 @@ package com.amit.api;
 
 import com.amit.dto.OrderDTO;
 import com.amit.entity.Order;
-import com.amit.entity.OrderStatus;
 import com.amit.service.OrderService;
+import jakarta.validation.Valid;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class CheckOutAPI {
     static Log logger = LogFactory.getLog(CheckOutAPI.class);
 
     @PostMapping("/checkout")
-    public ResponseEntity<String> checkout(@RequestBody OrderDTO orderDTO) {
+    public ResponseEntity<String> checkout(@Valid @RequestBody OrderDTO orderDTO) {
         try {
             logger.info("Received a request to create an order");
 
