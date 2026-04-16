@@ -13,7 +13,9 @@ import org.springframework.context.annotation.PropertySource;
 public class EKartApplication {
 
 	public static void main(String[] args) {
+//		System.out.println("SECRET = " + System.getenv("RAZORPAY_KEY_SECRET") + "KEY = "+ System.getenv("RAZORPAY_KEY_ID"));
 		SpringApplication.run(EKartApplication.class, args);
+
 	}
 
 }
