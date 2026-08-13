@@ -12,13 +12,13 @@ services:
 
   backend:
     build:
-      context: C:/Users/mrami/SpringBootProject/eKart
+      context: ./eKart
       dockerfile: Dockerfile
     container_name: ekart-app
     ports:
       - "8081:8081"
     env_file:
-      - .env
+      - /var/jenkins_env/.env
     environment:
       SPRING_DATA_MONGODB_URI: mongodb://mongodb:27017/my_database
       ENVIRONMENT: container
@@ -31,7 +31,7 @@ services:
     ports:
       - "5173:80"
     volumes:
-      - C:/Users/mrami/practice2/ECommerce/dist:/usr/share/nginx/html:ro
+      - ./frontend/dist:/usr/share/nginx/html:ro
     depends_on:
       - backend
 
