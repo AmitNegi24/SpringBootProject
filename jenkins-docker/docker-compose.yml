@@ -12,9 +12,19 @@ services:
 
     volumes:
       - jenkins_home:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
+
+      # Docker Desktop Docker socket
+      - /run/host-services/docker.proxy.sock:/var/run/docker.sock
+
+      # Existing .env
+      - /run/desktop/mnt/host/c/Users/mrami/SpringBootProject/eKart/.env:/var/jenkins_env/.env:ro
+
+      # Kubernetes config
+      - C:/Users/mrami/.kube:/var/jenkins_home/.kube:ro
 
     restart: unless-stopped
 
 volumes:
   jenkins_home:
+    external: true
+    name: jenkins_home
